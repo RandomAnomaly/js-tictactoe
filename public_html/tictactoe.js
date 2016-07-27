@@ -37,6 +37,7 @@ var game = (function () {
         if (isValidMove(position)) {
             board[position.y][position.x] = token;
         }
+        console.log(board);
         display.updateGrid(board);
         // check for a win
     }
@@ -145,15 +146,13 @@ var display = (function () {
     };
 
     var animateInToken = (function (cell, token) {
-
+        var query;
+        if(token === "X"){
+            query = "#" + cell + " [id^=crossCell] line";
+        }
         
-/**
-        var element = document.querySelectorAll("g");
-
-
-
-        element.style.strokeDasharray = 3;
-        console.log(element.nodeName);*/
+        console.log(query);
+        
     });
 
     displayReturner.updateGrid = (function (grid) {
