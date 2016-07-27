@@ -8,16 +8,19 @@ var tokens = ["O", "X"];
 
 var game = (function () {
     var gameReturner = {};
-
+    var playerToken = 0;
+    var computerToken = 1;
     var board = [[null, null, null],
         [null, null, null],
         [null, null, null]];
+    
+    var waiting = true;
 
     gameReturner.newGame = (function (playerToken, playerStarts) {
         display.clearBoard();
         display.hideButtons();
         if (typeof playerStarts === 'undefined' || playerStarts === false) {
-            makeMove(generateComputerMove(), "X");
+            makeMove(generateComputerMove(), tokens[computerToken]);
         }
         
 
@@ -25,6 +28,13 @@ var game = (function () {
 
     });
 
+    gameReturner.makePlay = (function(position){
+        if(waiting && isValidMove(position)){
+            makeMove(position, playerToken);
+            makeMove(generateComputerMove(), tokens[computerToken]);
+        }
+        console.log("makePlay was called, but not waiting or is not valid move");
+    });
     
 
     // Checks if there is space at given position
@@ -38,7 +48,11 @@ var game = (function () {
         }
         console.log(board);
         display.updateGrid(board);
-        // check for a win
+        
+        if(isWinningMove(position)){
+            return true;
+        }
+        return false;
     }
 
 
@@ -107,4 +121,6 @@ function clicked(evt) {
 
     console.log("X: " + x + " Y: " + y + " Width: " + dim.width + " Height: " + dim.height);
     //display.clearBoard();
+    var temp = new Position(0,0);
+    game.makePlay(temp);
 }

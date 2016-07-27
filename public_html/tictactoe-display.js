@@ -84,6 +84,7 @@ var display = (function () {
                 }
             }
         }
+        console.log(grid);
     });
 
     return displayReturner;
