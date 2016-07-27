@@ -49,9 +49,8 @@ var display = (function () {
         }
         var x = x2 - x1;
         var y = y2 - y1;
-
+        
         distSquared = Math.pow(x, 2) + Math.pow(y, 2);
-
         return Math.sqrt(distSquared);
     };
 
@@ -63,12 +62,18 @@ var display = (function () {
 
     var animateInToken = (function (cell, token) {
         var query;
-        if(token === "X"){
+        if (token === "X") {
             query = "#" + cell + " [id^=crossCell] line";
         }
         
-        console.log(query);
+        var elements = document.querySelectorAll(query);
         
+        for(var i = 0; i < elements.length; i++){
+            elements[i].style.strokeDashoffset = 0;
+        }
+        
+        console.log(query);
+
     });
 
     displayReturner.updateGrid = (function (grid) {

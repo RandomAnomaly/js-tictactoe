@@ -16,17 +16,16 @@ var game = (function () {
     gameReturner.newGame = (function (playerToken, playerStarts) {
         display.clearBoard();
         display.hideButtons();
-        if (typeof playerStarts === 'undefined') {
-            playerStarts = false;
+        if (typeof playerStarts === 'undefined' || playerStarts === false) {
+            makeMove(generateComputerMove(), "X");
         }
-
-        console.log("Player Starts: " + playerStarts);
-        console.log(generateComputerMove().toString());
-        makeMove(generateComputerMove(), "X");
+        
 
 
 
     });
+
+    
 
     // Checks if there is space at given position
     function isValidMove(position) {
