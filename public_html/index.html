@@ -18,17 +18,17 @@ and open the template in the editor.
     <body>
         <div class="container-fluid">
 
+            <h1>.tic .tac .toe</h1>
 
-
-            <div class="row" id="buttonRow">
+            <div class="row">
                 <div class="col-sm-4 col-sm-push-4">
 
                     <svg id="svg" width="100%" viewBox="0 0 34 34" onClick="clicked(evt);">
                     <g id="gameplayArea">
-                    <line x1="10" y1="0" x2="10" y2="31" style="stroke:rgb(255,0,0);stroke-width:0.5" />
-                    <line x1="20.5" y1="0" x2="20.5" y2="31" style="stroke:rgb(255,0,0);stroke-width:0.5" />
-                    <line x1="0" y1="10" x2="31" y2="10" style="stroke:rgb(255,0,0);stroke-width:0.5" />
-                    <line x1="0" y1="20.5" x2="31" y2="20.5" style="stroke:rgb(255,0,0);stroke-width:0.5" />
+                    <line class="gridLine" x1="10" y1="0" x2="10" y2="31" style="stroke-width:0.5" />
+                    <line class="gridLine" x1="20.5" y1="0" x2="20.5" y2="31" style="stroke-width:0.5" />
+                    <line class="gridLine" x1="0" y1="10" x2="31" y2="10" style="stroke-width:0.5" />
+                    <line class="gridLine" x1="0" y1="20.5" x2="31" y2="20.5" style="stroke-width:0.5" />
 
                     <!-- Cell 0 0 -->
                     <g id="tokensCell00">
@@ -134,10 +134,10 @@ and open the template in the editor.
                     <!-- Buttons to begin game -->
                     <div id="buttons" class="row">
                         <div class="col-xs-6">
-                            <button class="btn btn-primary btn-block" onClick="game.newGame('X');">X</button>
+                            <button class="btn btn-block" onClick="game.newGame('X');">X</button>
                         </div>
                         <div class="col-xs-6">
-                            <button class="btn btn-primary btn-block" onClick="game.newGame('O');">O</button>
+                            <button class="btn btn-block" onClick="game.newGame('O');">O</button>
                         </div>
                         <!-- End Buttons to begin game -->
                     </div>

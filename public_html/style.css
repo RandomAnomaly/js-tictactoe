@@ -1,12 +1,35 @@
 
-#crossCell00 {
-    
-    
-    
+h1 {
+    text-align: center;
+    color: #A72020;
 }
 
-#tokensCell00 #crossCell00 {
-   
+.gridLine {
+    stroke: #850505;
+}
+
+[id^="tokensCell"] circle, [id^="crossCell"] line {
+    stroke: #1B0000;
+}
+
+path {
+    stroke: #1B0000;
+}
+
+.btn, .btn:focus, btn:active {
+    background-color: #3C0000;
+    border: none;
+    color: #850505;
+    outline: none;
+}
+
+.btn:hover {
+    background-color: #850505;
+    color: #3C0000;
+}
+
+body, html {
+    background-color: #600000;
 }
 
 #gameplayArea {
