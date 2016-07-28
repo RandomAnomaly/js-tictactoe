@@ -29,8 +29,8 @@ var game = (function () {
 
     gameReturner.makePlay = (function(position){
         if(waiting && isValidMove(position)){
-            makeMove(position, tokens[playerToken]);
-            makeMove(generateComputerMove(), tokens[computerToken]);
+            makeMove(position, tokens[playerToken]) ? console.log("win") : null;
+            makeMove(generateComputerMove(), tokens[computerToken]) ? console.log("win") : null;
         }
         else{
         console.log("makePlay was called, but not waiting or is not valid move");
@@ -50,10 +50,7 @@ var game = (function () {
         
         display.updateGrid(board);
         
-        if(isWinningMove(position)){
-            return true;
-        }
-        return false;
+        return isWinningMove(position);
     }
 
 
@@ -64,8 +61,26 @@ var game = (function () {
         if (board[y][0] === board[y][1] && board[y][1] === board[y][2]) {
             return true;
         }
+        // vertical
+        if(board[0][x] === board[1][x] && board[1][x] === board[2][x]){
+            return true;
+        }
+        
+        // diags
+        //check move is elegible for diag
+        if((x === 1 && y === 1) || (x !== 1 && y !== 1)){
+            if(board[0][0] === board[1][1] && board[1][1] === board[2][2]){
+                return true;
+            }
+            if(board[0][2] === [board[1][1] && board[2][0] === board[2][0]]){
+                return true;
+            }
+        }
         return false;
     }
+    
+    
+    
     // Generates a move for the computer, for now just random
     function generateComputerMove() {
         if (boardHasEmptySpace) {
