@@ -4,7 +4,6 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!-- master comment -->
 <html>
     <head>
         <title>TODO supply a title</title>
@@ -24,7 +23,8 @@ and open the template in the editor.
             <div class="row" id="buttonRow">
                 <div class="col-sm-4 col-sm-push-4">
 
-                    <svg id="svg" width="100%" viewBox="0 0 31 31" onClick="clicked(evt);">
+                    <svg id="svg" width="100%" viewBox="0 0 34 34" onClick="clicked(evt);">
+                    <g id="gameplayArea">
                     <line x1="10" y1="0" x2="10" y2="31" style="stroke:rgb(255,0,0);stroke-width:0.5" />
                     <line x1="20.5" y1="0" x2="20.5" y2="31" style="stroke:rgb(255,0,0);stroke-width:0.5" />
                     <line x1="0" y1="10" x2="31" y2="10" style="stroke:rgb(255,0,0);stroke-width:0.5" />
@@ -110,8 +110,23 @@ and open the template in the editor.
                     <line x1="30" y1="21.5" x2="21.5" y2="30" stroke="black" stroke-width="0.5" />
                     </g>
                     </g>
+                    </g>
 
-
+                    <!-- Victory Lines -->
+                    <!-- Horizontal -->
+                    <path id="bottom-hor-victory" d="M0.5 33.5 L0.5 27 L33.5 27" stroke="black" fill="none" stroke-width="0.5"/>
+                    <path id="middle-hor-victory" d="M0.5 33.5 L0.5 17 L33.5 17" stroke="black" fill="none" stroke-width="0.5"/>
+                    <path id="top-hor-victory" d="M0.5 33.5 L0.5 6.5 L33.5 6.5" stroke="black" fill="none" stroke-width="0.5"/>
+                    
+                    <!-- Vertical -->
+                    <path id="left-vert-victory" d="M0.5 33.5 L6.5 33.5 L6.5 0.5" stroke="black" fill="none" stroke-width="0.5"/>
+                    <path id="middle-vert-victory" d="M0.5 33.5 L17 33.5 L17 0.5" stroke="black" fill="none" stroke-width="0.5"/>
+                    <path id="right-vert-victory" d="M0.5 33.5 L27.25 33.5 L27.25 0.5" stroke="black" fill="none" stroke-width="0.5"/>
+                    
+                    <!-- Diags -->
+                    <path id="forward-diag-victory" d="M0.5 33.5 L33.5 0.5" stroke="black" fill="none" stroke-width="0.5"/>
+                    <path id="backward-diag-victory" d="M0.5 33.5 L33.5 33.5 L0.5 0.5" stroke="black" fill="none" stroke-width="0.5"/>
+                    
                     </svg>
 
                     <!-- Buttons to begin game -->

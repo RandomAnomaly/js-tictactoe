@@ -15,15 +15,29 @@ var display = (function () {
     displayReturner.clearBoard = (function () {
         var elements = document.querySelectorAll("circle, [id^=crossCell] line");
         for (var i = 0; i < elements.length; i++) {
-            var path = pathLength(elements[i]);
+            var path = svgLineLength(elements[i]);
             var element = elements[i];
             element.style.transition = "stroke-dashoffset 0.5s linear";
             element.style.strokeDasharray = path;
             element.style.strokeDashoffset = path;
         }
+        
+        //handle the victory lines
+        elements = document.querySelectorAll("path");
+        
+        for(var i = 0; i < elements.length; i++){
+            var element = elements[i];
+            //var pathLength = elements[i].getTotalLength();
+            var pathLength = elements[i].getTotalLength();
+            console.log(pathLength);
+            element.style.transition = "stroke-dashoffset 0.5s linear";
+            element.style.strokeDasharray = pathLength;
+            element.style.strokeDashoffset = pathLength;
+        }
+        
     });
 
-    var pathLength = function (element) {
+    var svgLineLength = function (element) {
         if (element.nodeName === 'circle') {
             return circumference(element);
         } else if (element.nodeName === 'line') {

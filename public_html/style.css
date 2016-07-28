@@ -9,6 +9,6 @@
    
 }
 
-#svg {
-    
+#gameplayArea {
+    transform: translate(1.5px, 1.5px);
 }
