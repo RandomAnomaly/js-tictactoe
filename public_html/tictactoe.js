@@ -16,37 +16,38 @@ var game = (function () {
     
     var waiting = true;
 
-    gameReturner.newGame = (function (playerToken, playerStarts) {
+    gameReturner.newGame = (function (pT, playerStarts) {
+        playerToken = tokens.indexOf(pT);
+        computerToken = playerToken === 0 ? 1 : 0;
+        
         display.clearBoard();
         display.hideButtons();
         if (typeof playerStarts === 'undefined' || playerStarts === false) {
             makeMove(generateComputerMove(), tokens[computerToken]);
         }
-        
-
-
-
     });
 
     gameReturner.makePlay = (function(position){
         if(waiting && isValidMove(position)){
-            makeMove(position, playerToken);
+            makeMove(position, tokens[playerToken]);
             makeMove(generateComputerMove(), tokens[computerToken]);
         }
+        else{
         console.log("makePlay was called, but not waiting or is not valid move");
+    }
     });
     
 
     // Checks if there is space at given position
     function isValidMove(position) {
-        return (!board[position.x][position.y]);
+        return (!board[position.y][position.x]);
     }
 
     function makeMove(position, token) {
         if (isValidMove(position)) {
             board[position.y][position.x] = token;
         }
-        console.log(board);
+        
         display.updateGrid(board);
         
         if(isWinningMove(position)){
@@ -113,14 +114,24 @@ function Position(x, y) {
     };
 }
 
+function translatePercentage(value){
+    if(value < 33){
+        return 0;
+    }
+    if(value < 66){
+        return 1;
+    }
+    return 2;
+}
+
 function clicked(evt) {
     var e = evt.target;
     var dim = e.getBoundingClientRect();
     var x = evt.clientX - dim.left;
     var y = evt.clientY - dim.top;
-
-    console.log("X: " + x + " Y: " + y + " Width: " + dim.width + " Height: " + dim.height);
-    //display.clearBoard();
-    var temp = new Position(0,0);
+    
+    var temp = new Position(translatePercentage(Math.floor(x/dim.width*100)),translatePercentage(Math.floor(y/dim.height*100)));
+    
+    
     game.makePlay(temp);
 }

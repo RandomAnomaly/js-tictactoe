@@ -64,6 +64,8 @@ var display = (function () {
         var query;
         if (token === "X") {
             query = "#" + cell + " [id^=crossCell] line";
+        } else {
+            query = "#" + cell + " circle";
         }
         
         var elements = document.querySelectorAll(query);
@@ -71,12 +73,10 @@ var display = (function () {
         for(var i = 0; i < elements.length; i++){
             elements[i].style.strokeDashoffset = 0;
         }
-        
-        console.log(query);
-
     });
 
     displayReturner.updateGrid = (function (grid) {
+        prettyPrintGrid(grid);
         for (var i = 0; i < grid.length; i++) {
             for (var x = 0; x < grid[i].length; x++) {
                 if (grid[i][x] !== null) {
@@ -84,8 +84,15 @@ var display = (function () {
                 }
             }
         }
-        console.log(grid);
+        
     });
+
+
+    function prettyPrintGrid(grid){
+        for(var i = 0; i < grid.length; i++){
+            console.log(i + ":\t\t" + grid[i][0] + "\t\t" + grid[i][1] + "\t\t" + grid[i][2] + "\n\n");
+        }
+    }
 
     return displayReturner;
 })();
