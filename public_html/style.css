@@ -4,6 +4,11 @@ h1 {
     color: #A72020;
 }
 
+h2, a {
+    text-align: center;
+    color: #3C0000;
+}
+
 .gridLine {
     stroke: #850505;
 }
