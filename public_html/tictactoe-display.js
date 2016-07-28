@@ -76,15 +76,14 @@ var display = (function () {
     });
 
     displayReturner.updateGrid = (function (grid) {
-        prettyPrintGrid(grid);
+        //prettyPrintGrid(grid);
         for (var i = 0; i < grid.length; i++) {
             for (var x = 0; x < grid[i].length; x++) {
                 if (grid[i][x] !== null) {
                     animateInToken("tokensCell" + i + x, grid[i][x]);
                 }
             }
-        }
-        
+        }   
     });
 
 

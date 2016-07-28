@@ -13,13 +13,13 @@ var game = (function () {
     var board = [[null, null, null],
         [null, null, null],
         [null, null, null]];
-    
+
     var waiting = true;
 
     gameReturner.newGame = (function (pT, playerStarts) {
         playerToken = tokens.indexOf(pT);
         computerToken = playerToken === 0 ? 1 : 0;
-        
+
         display.clearBoard();
         display.hideButtons();
         if (typeof playerStarts === 'undefined' || playerStarts === false) {
@@ -27,16 +27,15 @@ var game = (function () {
         }
     });
 
-    gameReturner.makePlay = (function(position){
-        if(waiting && isValidMove(position)){
-            makeMove(position, tokens[playerToken]) ? console.log("win") : null;
-            makeMove(generateComputerMove(), tokens[computerToken]) ? console.log("win") : null;
+    gameReturner.makePlay = (function (position) {
+        if (waiting && isValidMove(position)) {
+            makeMove(position, tokens[playerToken]) ? console.log("win player") :
+                    makeMove(generateComputerMove(), tokens[computerToken]) ? console.log("win computer") : null;
+        } else {
+            console.log("makePlay was called, but not waiting or is not valid move");
         }
-        else{
-        console.log("makePlay was called, but not waiting or is not valid move");
-    }
     });
-    
+
 
     // Checks if there is space at given position
     function isValidMove(position) {
@@ -47,9 +46,8 @@ var game = (function () {
         if (isValidMove(position)) {
             board[position.y][position.x] = token;
         }
-        
+
         display.updateGrid(board);
-        
         return isWinningMove(position);
     }
 
@@ -62,25 +60,25 @@ var game = (function () {
             return true;
         }
         // vertical
-        if(board[0][x] === board[1][x] && board[1][x] === board[2][x]){
+        if (board[0][x] === board[1][x] && board[1][x] === board[2][x]) {
             return true;
         }
-        
+
         // diags
         //check move is elegible for diag
-        if((x === 1 && y === 1) || (x !== 1 && y !== 1)){
-            if(board[0][0] === board[1][1] && board[1][1] === board[2][2]){
+        if ((x === 1 && y === 1) || (x !== 1 && y !== 1)) {
+            if (board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
                 return true;
             }
-            if(board[0][2] === [board[1][1] && board[2][0] === board[2][0]]){
+            if (board[0][2] === board[1][1] && board[0][2] === board[2][0]) {
                 return true;
             }
         }
         return false;
     }
-    
-    
-    
+
+
+
     // Generates a move for the computer, for now just random
     function generateComputerMove() {
         if (boardHasEmptySpace) {
@@ -129,11 +127,11 @@ function Position(x, y) {
     };
 }
 
-function translatePercentage(value){
-    if(value < 33){
+function translatePercentage(value) {
+    if (value < 33) {
         return 0;
     }
-    if(value < 66){
+    if (value < 66) {
         return 1;
     }
     return 2;
@@ -144,9 +142,9 @@ function clicked(evt) {
     var dim = e.getBoundingClientRect();
     var x = evt.clientX - dim.left;
     var y = evt.clientY - dim.top;
-    
-    var temp = new Position(translatePercentage(Math.floor(x/dim.width*100)),translatePercentage(Math.floor(y/dim.height*100)));
-    
-    
+
+    var temp = new Position(translatePercentage(Math.floor(x / dim.width * 100)), translatePercentage(Math.floor(y / dim.height * 100)));
+
+
     game.makePlay(temp);
 }
