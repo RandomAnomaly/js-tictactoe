@@ -10,16 +10,19 @@ var game = (function () {
     var gameReturner = {};
     var playerToken = 0;
     var computerToken = 1;
-    var board = [[null, null, null],
-        [null, null, null],
-        [null, null, null]];
+    var board;
 
-    var waiting = true;
+    var waiting;
 
     gameReturner.newGame = (function (pT, playerStarts) {
         playerToken = tokens.indexOf(pT);
-        computerToken = playerToken === 0 ? 1 : 0;
-
+        computerToken = (playerToken === 0 ? 1 : 0);
+        board = [[null, null, null],
+        [null, null, null],
+        [null, null, null]];
+    
+        waiting = true;
+    
         display.clearBoard();
         display.hideButtons();
         if (typeof playerStarts === 'undefined' || playerStarts === false) {
