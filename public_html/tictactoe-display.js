@@ -12,6 +12,7 @@ var display = (function () {
         //document.querySelectorAll("#buttons").style.visibility = "hidden";
     });
 
+    //Ensure all offsets and whatnot are clear
     displayReturner.clearBoard = (function () {
         var elements = document.querySelectorAll("circle, [id^=crossCell] line");
         for (var i = 0; i < elements.length; i++) {
@@ -28,8 +29,7 @@ var display = (function () {
         for(var i = 0; i < elements.length; i++){
             var element = elements[i];
             //var pathLength = elements[i].getTotalLength();
-            var pathLength = elements[i].getTotalLength();
-            console.log(pathLength);
+            var pathLength = element.getTotalLength();
             element.style.transition = "stroke-dashoffset 0.5s linear";
             element.style.strokeDasharray = pathLength;
             element.style.strokeDashoffset = pathLength;
