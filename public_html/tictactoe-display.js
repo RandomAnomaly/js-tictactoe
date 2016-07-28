@@ -73,6 +73,11 @@ var display = (function () {
         var r = element.getAttribute("r");
         return (2 * (3.1415 * r));
     };
+    
+    displayReturner.animateVictory = (function(line){
+        var element = document.querySelector("#" + line);
+        element.style.strokeDashoffset = 0;
+    });
 
     var animateInToken = (function (cell, token) {
         var query;
@@ -90,7 +95,7 @@ var display = (function () {
     });
 
     displayReturner.updateGrid = (function (grid) {
-        //prettyPrintGrid(grid);
+        prettyPrintGrid(grid);
         for (var i = 0; i < grid.length; i++) {
             for (var x = 0; x < grid[i].length; x++) {
                 if (grid[i][x] !== null) {
@@ -103,7 +108,7 @@ var display = (function () {
 
     function prettyPrintGrid(grid){
         for(var i = 0; i < grid.length; i++){
-            console.log(i + ":\t\t" + grid[i][0] + "\t\t" + grid[i][1] + "\t\t" + grid[i][2] + "\n\n");
+            console.log(i + ":\t\t\t" + grid[i][0] + "\t\t\t" + grid[i][1] + "\t\t\t" + grid[i][2] + "\n\n");
         }
     }
 

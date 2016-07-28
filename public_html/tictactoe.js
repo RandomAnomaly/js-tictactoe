@@ -29,8 +29,27 @@ var game = (function () {
 
     gameReturner.makePlay = (function (position) {
         if (waiting && isValidMove(position)) {
-            makeMove(position, tokens[playerToken]) ? console.log("win player") :
-                    makeMove(generateComputerMove(), tokens[computerToken]) ? console.log("win computer") : null;
+            waiting = false;
+            
+            // player move
+            var victory = makeMove(position, tokens[playerToken]);
+            
+            if(victory){
+                display.animateVictory(victory);
+                //player wins
+                console.log("player win: " + victory);
+            } else {
+                victory = makeMove(generateComputerMove(), tokens[computerToken]);
+                if(victory){
+                    display.animateVictory(victory);
+                    //computer wins
+                    console.log("computer win: " + victory);
+                } else {
+                    waiting = true;
+                }
+            }
+            
+            
         } else {
             console.log("makePlay was called, but not waiting or is not valid move");
         }
@@ -55,26 +74,42 @@ var game = (function () {
     function isWinningMove(position) {
         var x = position.x;
         var y = position.y;
+        console.log("Checking move: " + x + " " + y)
+        
         // accross
         if (board[y][0] === board[y][1] && board[y][1] === board[y][2]) {
-            return true;
+            console.log("Winning move: " + x + " " + y)
+            if (y === 0) {
+                return "top-hor-victory";
+            } else if (y === 1) {
+                return "middle-hor-victory";
+            }
+            return "bottom-hor-victory";
         }
         // vertical
         if (board[0][x] === board[1][x] && board[1][x] === board[2][x]) {
-            return true;
+            console.log("Winning move: " + x + " " + y)
+            if(x===0){
+                return "left-vert-victory";
+            } else if(x===1){
+                return "middle-vert-victory";
+            }
+            return "right-vert-victory";
         }
 
         // diags
         //check move is elegible for diag
         if ((x === 1 && y === 1) || (x !== 1 && y !== 1)) {
-            if (board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
-                return true;
+            if (board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[0][0] !== null) {
+                console.log("Winning move: " + x + " " + y);
+                return "backward-diag-victory";
             }
-            if (board[0][2] === board[1][1] && board[0][2] === board[2][0]) {
-                return true;
+            if (board[0][2] === board[1][1] && board[0][2] === board[2][0] && board[0][0] !== null) {
+                console.log("Winning move: " + x + " " + y);
+                return "forward-diag-victory";
             }
         }
-        return false;
+        return;
     }
 
 
@@ -86,6 +121,7 @@ var game = (function () {
             while (!isValidMove(move)) {
                 move = randomPosition();
             }
+            console.log("Computer move generated: " + move.toString());
             return move;
         }
     }
