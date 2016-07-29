@@ -24,7 +24,6 @@ var game = (function () {
         waiting = true;
     
         display.clearBoard();
-        display.hideButtons();
         if (typeof playerStarts === 'undefined' || playerStarts === false) {
             makeMove(generateComputerMove(), tokens[computerToken]);
         }
