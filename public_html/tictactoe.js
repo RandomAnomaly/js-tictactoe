@@ -1,12 +1,13 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author Jack Gammon
+ * @type game
  */
 
 var tokens = ["O", "X"];
+var display;
 
-var game = (function () {
+var game = function () {
+    "use strict";
     var gameReturner = {};
     var playerToken = 0;
     var computerToken = 1;
@@ -14,35 +15,38 @@ var game = (function () {
 
     var waiting;
 
-    gameReturner.newGame = (function (pT, playerStarts) {
+    gameReturner.newGame = function (pT, playerStarts) {
         playerToken = tokens.indexOf(pT);
-        computerToken = (playerToken === 0 ? 1 : 0);
+        computerToken =
+                playerToken === 0
+            ? 1
+            : 0;
         board = [[null, null, null],
-        [null, null, null],
-        [null, null, null]];
-    
+                [null, null, null],
+                [null, null, null]];
+
         waiting = true;
-    
+
         display.clearBoard();
-        if (typeof playerStarts === 'undefined' || playerStarts === false) {
+        if (playerStarts === "undefined" || playerStarts === false) {
             makeMove(generateComputerMove(), tokens[computerToken]);
         }
-    });
+    };
 
     gameReturner.makePlay = (function (position) {
         if (waiting && isValidMove(position)) {
             waiting = false;
-            
+
             // player move
             var victory = makeMove(position, tokens[playerToken]);
-            
-            if(victory){
+
+            if (victory) {
                 display.animateVictory(victory);
                 //player wins
                 console.log("player win: " + victory);
             } else {
                 victory = makeMove(generateComputerMove(), tokens[computerToken]);
-                if(victory){
+                if (victory) {
                     display.animateVictory(victory);
                     //computer wins
                     console.log("computer win: " + victory);
@@ -50,8 +54,8 @@ var game = (function () {
                     waiting = true;
                 }
             }
-            
-            
+
+
         } else {
             console.log("makePlay was called, but not waiting or is not valid move");
         }
@@ -76,24 +80,26 @@ var game = (function () {
     function isWinningMove(position) {
         var x = position.x;
         var y = position.y;
-        console.log("Checking move: " + x + " " + y)
-        
+        console.log("Checking move: " + x + " " + y);
+
         // accross
         if (board[y][0] === board[y][1] && board[y][1] === board[y][2]) {
-            console.log("Winning move: " + x + " " + y)
+            console.log("Winning move: " + x + " " + y);
             if (y === 0) {
                 return "top-hor-victory";
-            } else if (y === 1) {
+            }
+            if (y === 1) {
                 return "middle-hor-victory";
             }
             return "bottom-hor-victory";
         }
         // vertical
         if (board[0][x] === board[1][x] && board[1][x] === board[2][x]) {
-            console.log("Winning move: " + x + " " + y)
-            if(x===0){
+            console.log("Winning move: " + x + " " + y);
+            if (x === 0) {
                 return "left-vert-victory";
-            } else if(x===1){
+            }
+            if (x === 1) {
                 return "middle-vert-victory";
             }
             return "right-vert-victory";
@@ -138,7 +144,8 @@ var game = (function () {
     }
 
     function boardHasEmptySpace() {
-        for (var i = 0; i < board.length; i++) {
+        var i;
+        for (i = 0; i < board.length; i++) {
             if (board[i].indexOf(null) > -1) {
                 return true;
             }
@@ -149,7 +156,7 @@ var game = (function () {
 
 
     return gameReturner;
-})();
+}();
 
 // Represents a position on the board
 function Position(x, y) {
