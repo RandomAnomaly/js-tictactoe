@@ -12,19 +12,22 @@ var game = function () {
     var playerToken = 0;
     var computerToken = 1;
     var board;
-
+    var boardHasEmptySpace;
+    var makeMove;
+    var isValidMove;
+    var generateComputerMove;
     var waiting;
+    var isWinningMove;
+    var randomPosition;
+    var getRandomNumber;
 
     gameReturner.newGame = function (pT, playerStarts) {
         playerToken = tokens.indexOf(pT);
-        computerToken =
-                playerToken === 0
-            ? 1
-            : 0;
-        board = [[null, null, null],
-                [null, null, null],
-                [null, null, null]];
 
+        computerToken = (playerToken === 0)
+                ? 1
+                : 0;
+        board = [[null, null, null], [null, null, null], [null, null, null]];
         waiting = true;
 
         display.clearBoard();
@@ -33,7 +36,7 @@ var game = function () {
         }
     };
 
-    gameReturner.makePlay = (function (position) {
+    gameReturner.makePlay = function (position) {
         if (waiting && isValidMove(position)) {
             waiting = false;
 
@@ -59,25 +62,25 @@ var game = function () {
         } else {
             console.log("makePlay was called, but not waiting or is not valid move");
         }
-    });
+    };
 
 
     // Checks if there is space at given position
-    function isValidMove(position) {
+    isValidMove = function (position) {
         return (!board[position.y][position.x]);
-    }
+    };
 
-    function makeMove(position, token) {
+    makeMove = function (position, token) {
         if (isValidMove(position)) {
             board[position.y][position.x] = token;
         }
 
         display.updateGrid(board);
         return isWinningMove(position);
-    }
+    };
 
 
-    function isWinningMove(position) {
+    isWinningMove = function (position) {
         var x = position.x;
         var y = position.y;
         console.log("Checking move: " + x + " " + y);
@@ -118,12 +121,12 @@ var game = function () {
             }
         }
         return;
-    }
+    };
 
 
 
     // Generates a move for the computer, for now just random
-    function generateComputerMove() {
+    generateComputerMove = function () {
         if (boardHasEmptySpace) {
             var move = randomPosition();
             while (!isValidMove(move)) {
@@ -132,26 +135,26 @@ var game = function () {
             console.log("Computer move generated: " + move.toString());
             return move;
         }
-    }
+    };
 
 
-    function randomPosition() {
+    randomPosition = function () {
         return new Position(getRandomNumber(0, 2), getRandomNumber(0, 2));
-    }
+    };
 
-    function getRandomNumber(min, max) {
+    getRandomNumber = function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    };
 
-    function boardHasEmptySpace() {
+    boardHasEmptySpace = function () {
         var i;
-        for (i = 0; i < board.length; i++) {
+        for (i = 0; i < board.length; i += 1) {
             if (board[i].indexOf(null) > -1) {
                 return true;
             }
         }
         return false;
-    }
+    };
 
 
 
@@ -160,6 +163,8 @@ var game = function () {
 
 // Represents a position on the board
 function Position(x, y) {
+    "use strict";
+
     this.x = x;
     this.y = y;
 
@@ -173,6 +178,7 @@ function Position(x, y) {
 }
 
 function translatePercentage(value) {
+    "use strict";
     if (value < 33) {
         return 0;
     }
@@ -183,6 +189,7 @@ function translatePercentage(value) {
 }
 
 function clicked(evt) {
+    "use strict";
     var e = evt.target;
     var dim = e.getBoundingClientRect();
     var x = evt.clientX - dim.left;
